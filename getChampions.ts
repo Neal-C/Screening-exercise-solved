@@ -44,7 +44,7 @@ export function getChampions<T extends ChessPlayer>(participants: Array<T>) {
 
 	const BESTS_BY_AGE = Array.from(new Set(Object.values(RECORD).flat())) as Array<T>;
 
-	const DESCENDING_ORDERED_AGES = Object.keys(RECORD).sort((a, b) => Number(b) - Number(a));
+	const ASCENDING_ORDERED_AGES = Object.keys(RECORD).sort((a, b) => Number(a) - Number(b));
 
 
 
@@ -52,8 +52,8 @@ export function getChampions<T extends ChessPlayer>(participants: Array<T>) {
 
 	loopingOnPlayers: for (const player of BESTS_BY_AGE) {
 
-		loopingOnAges: for (const ageCategory of DESCENDING_ORDERED_AGES) {
-			if (Number(ageCategory) === player.age) continue loopingOnAges;
+		loopingOnAges: for (const ageCategory of ASCENDING_ORDERED_AGES) {
+			if (Number(ageCategory) === player.age) break loopingOnAges;
 			if (isEliminatedBy(player, RECORD[ageCategory])) continue loopingOnPlayers;
 		};
 
