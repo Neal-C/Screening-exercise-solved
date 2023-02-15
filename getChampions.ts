@@ -7,13 +7,13 @@ function isDraw<T extends ChessPlayer>(player1: NonNullable<T>, player2: NonNull
     return player1.elo === player2.elo;
 }
 
-function matchup<T extends ChessPlayer>(player1: T, player2: NonNullable<T>) {
+function setBestAtAgeCategory<T extends ChessPlayer>(player1: T, player2: NonNullable<T>) {
 	if (!player1) return player2;
 	if (!player2) return player1;
 	return player1.elo > player2.elo ? player1 : player2;
 }
 
-function isEliminated<T extends ChessPlayer>(player1: NonNullable<T>, player2: NonNullable<T>): boolean {
+function isEliminatedBy<T extends ChessPlayer>(player1: NonNullable<T>, player2: NonNullable<T>): boolean {
 	if (!player1) return true;
 	if (!player2) return false;
 	return player1.age >= player2.age && player1.elo < player2.elo;
@@ -23,21 +23,23 @@ export function getChampions<T extends ChessPlayer>(participants: Array<T>) {
 
     if(participants.length === 0) return [];
 
-	const RECORD = participants.reduce((championRecord, participant) => {
+	const RECORD = participants.reduce((record, participant) => {
 
 		const CATEGORY = participant.age;
 
-		const CURRENT_CHAMPION = championRecord[CATEGORY] ?? { elo: 0 };
+		const CURRENT_CHAMPION = record[CATEGORY] ?? { elo: 0 };
 
         if(isDraw(participant, CURRENT_CHAMPION)) {
             const TUPLE = [participant,CURRENT_CHAMPION];
-            championRecord.draws = championRecord.draws ?? [];
-            return { ...championRecord, ...championRecord.draws.concat(TUPLE)  };
+            record.draws = record.draws ?? [];
+            return { ...record, ...record.draws.concat(TUPLE)};
         };
 
-		championRecord[CATEGORY] = matchup(participant, CURRENT_CHAMPION);
+		record[CATEGORY] = setBestAtAgeCategory(participant, CURRENT_CHAMPION);
 
-		return { ...championRecord };
+		//Why I'm deliberately mutating the object
+		//@resource : https://www.youtube.com/watch?v=tcZbY-Q0TIE
+		return record;
 	}, {} as any);
 
 	const BESTS_BY_AGE = Array.from(new Set(Object.values(RECORD).flat())) as Array<T>;
@@ -52,7 +54,7 @@ export function getChampions<T extends ChessPlayer>(participants: Array<T>) {
 
 		loopingOnAges: for (const ageCategory of DESCENDING_ORDERED_AGES) {
 			if (Number(ageCategory) === player.age) continue loopingOnAges;
-			if (isEliminated(player, RECORD[ageCategory])) continue loopingOnPlayers;
+			if (isEliminatedBy(player, RECORD[ageCategory])) continue loopingOnPlayers;
 		};
 
 		CHAMPION_LIST.push(player);

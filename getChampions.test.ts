@@ -81,12 +81,6 @@ describe.concurrent("getChampions", () => {
 			];
 			//ACT
 			const RESULT = getChampions(PLAYER_LIST);
-			console.log("........ RESULT ......")
-			console.log(RESULT);
-			console.log("........ RESULT: END ......")
-			console.log("..... CHAMPIONS ......");
-			console.log(CHAMPIONS);
-			console.log("..... CHAMPIONS: END ......");
 			//ASSERT
 			expect(RESULT).toEqual(CHAMPIONS);
 	});
