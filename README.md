@@ -20,4 +20,4 @@ On attachera une importance particulire aux points suivants:
 
 ## désambiguïsation donné
 
-* logique attendue : [{Jean, 10 ans, 1000pts},{Marie, 9 ans, 1100}, {Pierre, 11 ans, 1200}] => [Marie, Pierre]
+* logique attendue : [{Jean, 10 ans, 1000pts},{Marie, 9 ans, 1100 pts}, {Pierre, 11 ans, 1200 pts}] => [Marie, Pierre]
