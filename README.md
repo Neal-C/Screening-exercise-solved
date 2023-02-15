@@ -18,6 +18,6 @@ On attachera une importance particulire aux points suivants:
 
 * la clareté et la lisibilité du code
 
-## Désambiguïtation donné
+## désambiguïsation donné
 
 * logique attendue : [{Jean, 10 ans, 1000pts},{Marie, 9 ans, 1100}, {Pierre, 11 ans, 1200}] => [Marie, Pierre]
