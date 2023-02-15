@@ -16,7 +16,7 @@ function setBestAtAgeCategory<T extends ChessPlayer>(player1: T, player2: NonNul
 function isEliminatedBy<T extends ChessPlayer>(player1: NonNullable<T>, player2: NonNullable<T>): boolean {
 	if (!player1) return true;
 	if (!player2) return false;
-	return player1.age >= player2.age && player1.elo < player2.elo;
+	return (player1.age >= player2.age && player1.elo < player2.elo) || (player1.age > player2.age && player1.elo <= player2.elo)
 }
 
 export function getChampions<T extends ChessPlayer>(participants: Array<T>) {
