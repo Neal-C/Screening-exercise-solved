@@ -44,6 +44,8 @@ export function getChampions<T extends ChessPlayer>(participants: Array<T>) {
 
 	const BESTS_BY_AGE = Array.from(new Set(Object.values(RECORD).flat())) as Array<T>;
 
+	delete RECORD.draws;
+
 	const ASCENDING_ORDERED_AGES = Object.keys(RECORD).sort((a, b) => Number(a) - Number(b));
 
 
