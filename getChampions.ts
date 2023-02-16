@@ -32,7 +32,9 @@ export function getChampions<T extends ChessPlayer>(participants: Array<T>) {
         if(isDraw(participant, CURRENT_CHAMPION)) {
             const TUPLE = [participant,CURRENT_CHAMPION];
             record.draws = record.draws ?? [];
-            return { ...record, ...record.draws.concat(TUPLE)};
+			record.draws.push(participant);
+			record.draws.push(CURRENT_CHAMPION);
+			return record;
         };
 
 		record[CATEGORY] = setBestAtAgeCategory(participant, CURRENT_CHAMPION);
@@ -42,7 +44,9 @@ export function getChampions<T extends ChessPlayer>(participants: Array<T>) {
 		return record;
 	}, {} as any);
 
-	const BESTS_BY_AGE = Array.from(new Set(Object.values(RECORD).flat())) as Array<T>;
+	const BESTS_BY_AGE = Array.from(new Set(Object.values(RECORD).flat().sort((a,b) => {
+		return (a as T).age - (b as T).age;
+	}))) as Array<T>;
 
 	delete RECORD.draws;
 

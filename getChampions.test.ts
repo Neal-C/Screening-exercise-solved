@@ -75,9 +75,9 @@ describe.concurrent("getChampions", () => {
 			];
 			//ASSERT
 			const CHAMPIONS: Array<Participant> = [
-				{ elo: 3000, age: 30, name: "Sherlock" },
-				{ elo: 3000, age: 30, name: "Magnus" },
 				{ elo: 2999, age: 24, name: "Francis" },
+				{ elo: 3000, age: 30, name: "Magnus" },
+				{ elo: 3000, age: 30, name: "Sherlock" },
 			];
 			//ACT
 			const RESULT = getChampions(PLAYER_LIST);
