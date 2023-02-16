@@ -30,7 +30,6 @@ export function getChampions<T extends ChessPlayer>(participants: Array<T>) {
 		const CURRENT_CHAMPION = record[CATEGORY] ?? { elo: 0 };
 
         if(isDraw(participant, CURRENT_CHAMPION)) {
-            const TUPLE = [participant,CURRENT_CHAMPION];
             record.draws = record.draws ?? [];
 			record.draws.push(participant);
 			record.draws.push(CURRENT_CHAMPION);
